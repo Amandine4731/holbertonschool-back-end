@@ -21,13 +21,17 @@ if __name__ == '__main__':
     user_tasks = []
     jsonfile = {}
 
-    for task in api_url_todos:
-        new_dict = {"username": api_url_user['username'],
-                    "task": task['title'],
-                    "completed": task['completed'],
-                    "username": api_url_user['username']}
-        user_tasks.append(new_dict)
-    jsonfile[useriD]=new_dict
+    for all_user in api_url_user:
+        USER_ID = all_user['id']
+        USERNAME = all_user['username']
+        user_tasks = []
+        for task in api_url_todos:
+            if task['userId'] == USER_ID:
+                new_dict = {"username": USERNAME,
+                            "task": task['title'],
+                            "completed": task['completed']}
+                user_tasks.append(new_dict)
+        jsonfile[USER_ID] = user_tasks
 
-    with open(f'todo_all_employees.json', 'w') as file:
+    with open('todo_all_employees.json', 'w') as file:
         json.dump(jsonfile, file)
