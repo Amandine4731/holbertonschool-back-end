@@ -3,6 +3,7 @@
     program to gather data from a database (use REST API)
 """
 
+
 import requests
 from sys import argv
 
@@ -27,9 +28,9 @@ if __name__ == '__main__':
     # Loop that calculates the number of tasks to do and tasks performed by the same user/employee
     for data in api_url_todos:
         if data['userId'] == unique_id:
-            TOTAL_NUMBER_OF_TASKS += 1 # Count all tasks TO DO for the same user user/employee
+            TOTAL_NUMBER_OF_TASKS += 1  # Count all tasks TO DO for the same user user/employee
             if data['completed']:
-                NUMBER_OF_DONE_TASKS += 1 # Count all tasks REALISED for the same user user/employee
+                NUMBER_OF_DONE_TASKS += 1  # Count all tasks REALISED for the same user user/employee
     # Create the program : Here, just print sentence with retrieved variables
     print(f"Employee {EMPLOYEE_NAME} is done with tasks({NUMBER_OF_DONE_TASKS}/{TOTAL_NUMBER_OF_TASKS}):")
 
