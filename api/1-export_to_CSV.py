@@ -12,14 +12,14 @@ from sys import argv
 if __name__ == '__main__':
     """ to execute this program - entry point """
 
-    unique_id = int(argv[1])
+    id = int(argv[1])
     # retrieve the database
     url_todos = requests.get(
-        f"https://jsonplaceholder.typicode.com/todos/?userId={unique_id}").json()
+        f"https://jsonplaceholder.typicode.com/todos/?userId={id}").json()
     # retrieve database of all users
     # the required first parameter of the 'get' method is the 'url'
     url_users = requests.get(
-        f"https://jsonplaceholder.typicode.com/users/{unique_id}").json()
+        f"https://jsonplaceholder.typicode.com/users/{id}").json()
 
     USER_ID = url_users['id']
 
@@ -27,7 +27,7 @@ if __name__ == '__main__':
         writer = csv.writer(f, quoting=csv.QUOTE_ALL)
 
         for key in url_todos:
-            if key['userId'] == unique_id:
+            if key['userId'] == id:
                 new_list = []
                 new_list.append(USER_ID)
                 new_list.append(url_users['username'])
