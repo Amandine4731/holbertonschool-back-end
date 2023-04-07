@@ -12,23 +12,22 @@ from sys import argv
 if __name__ == '__main__':
     """ to execute this program - entry point """
 
-    id_user = int(argv[1])
-
     api_url_todos = requests.get(
         "https://jsonplaceholder.typicode.com/todos/").json()
 
     api_url_user = requests.get(
-        f"https://jsonplaceholder.typicode.com/users/{id_user}").json()
+        f"https://jsonplaceholder.typicode.com/users/").json()
 
     user_tasks = []
+    jsonfile = {}
 
     for task in api_url_todos:
-        if task['userId'] == id_user:
-            new_dict = {"username": api_url_user['username'],
-                        "task": task['title'],
-                        "completed": task['completed'],
-                        "username": api_url_user['username']}
-            user_tasks.append(new_dict)
+        new_dict = {"username": api_url_user['username'],
+                    "task": task['title'],
+                    "completed": task['completed'],
+                    "username": api_url_user['username']}
+        user_tasks.append(new_dict)
+    jsonfile[useriD]=new_dict
 
-    with open(f'{id_user}.json', 'w') as file:
-        json.dump({str(id_user): user_tasks}, file)
+    with open(f'todo_all_employees.json', 'w') as file:
+        json.dump(jsonfile, file)
