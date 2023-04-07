@@ -12,25 +12,22 @@ from sys import argv
 if __name__ == '__main__':
     """ to execute this program - entry point """
 
-    id = int(argv[1])
-    # retrieve the database
-    url_todos = requests.get(
-        f"https://jsonplaceholder.typicode.com/todos/?userId={id}").json()
-    # retrieve database of all users
-    # the required first parameter of the 'get' method is the 'url'
-    url_users = requests.get(
-        f"https://jsonplaceholder.typicode.com/users/{id}").json()
+    id_user = int(argv[1])
 
-    USER_ID = url_users['id']
-    list = []
-    new_dict = {}
+    api_url_todos = requests.get(
+        "https://jsonplaceholder.typicode.com/todos/").json()
 
-    for key in url_todos:
-        if key['userId'] == id:
-            new_dict = dict(task=key['title'],
-                            completed=key['completed'],
-                            username=url_users['username'])
-            list.append(new_dict)
-    json_file = {f"{USER_ID}": list}
-    with open(f"{USER_ID}.json", 'w') as new_file:
-        json.dump(json_file, new_file)
+    api_url_user = requests.get(
+        f"https://jsonplaceholder.typicode.com/users/{id_user}").json()
+
+    user_tasks = []
+
+    for task in api_url_todos:
+        if task['userId'] == id_user:
+            new_dict = {"task": task['title'],
+                        "completed": task['completed'],
+                        "username": api_url_user['username']}
+            user_tasks.append(new_dict)
+
+    with open(f'{id_user}.json', 'w') as file:
+        json.dump({str(id_user): user_tasks}, file)
