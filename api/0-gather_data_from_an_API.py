@@ -11,15 +11,17 @@ from sys import argv
 if __name__ == '__main__':
     """ to execute this program - entry point """
 
+    # retrieve the database
+    api_url_todos = requests.get(
+        "https://jsonplaceholder.typicode.com/todos/").json()
+
     unique_id = int(argv[1])
 
-    # retrieve all databases
+    # retrieve database of all users
     # the required first parameter of the 'get' method is the 'url'
     api_url_users = requests.get(
         f"https://jsonplaceholder.typicode.com/users/{unique_id}").json()
 
-    api_url_todos = requests.get(
-        "https://jsonplaceholder.typicode.com/todos/").json()
 
     # I created all the variables that I need
     # Initialize variables to count
