@@ -14,23 +14,23 @@ if __name__ == '__main__':
 
     unique_id = int(argv[1])
     # retrieve the database
-    api_url_todos = requests.get(
+    url_todos = requests.get(
         f"https://jsonplaceholder.typicode.com/todos/?userId={unique_id}").json()
     # retrieve database of all users
     # the required first parameter of the 'get' method is the 'url'
-    api_url_users = requests.get(
+    url_users = requests.get(
         f"https://jsonplaceholder.typicode.com/users/{unique_id}").json()
 
-    USER_ID = api_url_users['id']
+    USER_ID = url_users['id']
 
     with open(f"{USER_ID}.csv", 'wt') as f:
         writer = csv.writer(f, quoting=csv.QUOTE_ALL)
 
-        for key in api_url_todos:
+        for key in url_todos:
             if key['userId'] == unique_id:
                 new_list = []
                 new_list.append(USER_ID)
-                new_list.append(api_url_users['username'])
+                new_list.append(url_users['username'])
                 new_list.append(key['completed'])
                 new_list.append(key['title'])
             writer.writerow(new_list)
