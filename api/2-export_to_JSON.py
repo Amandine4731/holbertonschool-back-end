@@ -32,7 +32,5 @@ if __name__ == '__main__':
                             username=url_users['username'])
             list.append(new_dict)
     json_file = {f"{USER_ID}": list}
-    print(json_file)
-
     with open(f"{USER_ID}.json", 'w') as new_file:
         json.dump(json_file, new_file)
